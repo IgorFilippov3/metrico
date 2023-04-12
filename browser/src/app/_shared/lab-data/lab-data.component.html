@@ -1,0 +1,33 @@
+<style>
+  .lab-data {
+    max-width: 700px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .lab-data__header {
+    color: #5e72e4;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div *ngIf="uiData" class="lab-data">
+  <div class="lab-data__header tui-text_h6">{{uiData.name}}</div>
+  <ng-container>
+    <ngx-charts-line-chart [yScaleMin]="yScaleMin" [yScaleMax]="yScaleMax"
+      [showRefLabels]="true" [roundDomains]="true" [view]="view"
+      [animations]="true" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
+      [results]="[uiData]">
+      <ng-template #tooltipTemplate let-model="model">
+        <ng-container *ngIf="uiData.name === 'Total Byte Weight'">
+          <div>{{model.value}} kb - {{model.name | date}}</div>
+        </ng-container>
+        <ng-container *ngIf="uiData.name !== 'Total Byte Weight'">
+          <div>{{model.value}} s - {{model.name | date}}</div>
+          <div *ngIf="model.comment">Comment - <b>{{model.comment}}</b></div>
+        </ng-container>
+      </ng-template>
+    </ngx-charts-line-chart>
+  </ng-container>
+</div>

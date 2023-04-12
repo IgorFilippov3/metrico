@@ -1,0 +1,112 @@
+<style>
+  .btn.is-open~.description {
+    opacity: 0;
+  }
+
+  .btn {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 60px;
+    transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1), height 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    text-align: center;
+  }
+
+  .btn-front {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    transition: background 0.15s ease, line-height 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .btn.is-open .btn-front {
+    pointer-events: none;
+  }
+
+  .btn-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    color: var(--tui-link);
+    transform: translateZ(-2px) rotateX(180deg);
+    overflow: hidden;
+    transition: box-shadow 0.8s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-back p {
+    margin-top: 27px;
+    margin-bottom: 25px;
+  }
+
+  .btn-back button {
+    padding: 12px 20px;
+    width: 30%;
+    margin: 0 5px;
+    background-color: transparent;
+    border: 0;
+    border-radius: 2px;
+    font-size: 1em;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    transition: background 0.15s ease;
+  }
+
+  .btn-back button:focus {
+    outline: 0;
+  }
+
+  .btn.is-open .btn-back {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn[data-direction=left] .btn-back,
+  .btn[data-direction=right] .btn-back {
+    transform: translateZ(-2px) rotateY(180deg);
+  }
+
+  .btn.is-open {
+    width: 300px;
+    height: 80px;
+  }
+
+  .btn[data-direction=top].is-open {
+    transform: rotateX(180deg);
+  }
+
+  .btn[data-direction=right].is-open {
+    transform: rotateY(180deg);
+  }
+
+  .btn[data-direction=bottom].is-open {
+    transform: rotateX(-180deg);
+  }
+
+  .btn[data-direction=left].is-open {
+    transform: rotateY(-180deg);
+  }
+  .btn--disabled {
+    opacity: 0.5;
+  }
+</style>
+
+
+<div class="btn" (click)="handleClick()">
+  <div *ngIf="!disabled" class="btn-back tui-text_body-l">
+    {{backLabel}}
+  </div>
+  <button tuiButton class="btn-front" [disabled]="disabled">
+    {{frontLabel}}
+  </button>
+</div>

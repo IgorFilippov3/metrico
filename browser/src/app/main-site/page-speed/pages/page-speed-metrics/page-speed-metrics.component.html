@@ -1,0 +1,185 @@
+<style>
+  .psm {
+    margin-top: 20px;
+    margin-bottom: 70px;
+  }
+
+  .psm__header {
+    text-align: center;
+    color: #5e72e4;
+    margin-bottom: 34px;
+    text-decoration: underline;
+  }
+
+  .psm__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    width: 768px;
+  }
+
+  .good {
+    color: #0cce6b;
+  }
+
+  .average {
+    color: #ffa400;
+  }
+
+  .bad {
+    color: #ff4e42;
+  }
+
+  .ps__hint {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ps__hint-explanation {
+    margin-bottom: 8px;
+  }
+
+  .psm__explain {
+    margin-top: 20px;
+  }
+
+  .psm__date-range {
+    margin-bottom: 34px;
+  }
+  .psm__warning {
+    text-align: center;
+    margin: 16px 0;
+  }
+  .psm__warning i {
+    color: #f44336;
+  }
+</style>
+
+<tui-tabs>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.DESKTOP)">
+    Desktop
+  </button>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.MOBILE)">
+    Mobile
+  </button>
+</tui-tabs>
+
+<mt-page backLink="/user-experience">
+  <div class="psm">
+    <div *ngIf="page" class="psm__header tui-text_h4">{{page.url}}</div>
+    <div *ngIf="displayData; else noContent" class="psm__content">
+      <div class="psm__date-range container">
+        <form [formGroup]="dateRangeForm">
+          <tui-input-date-range formControlName="dateRange"
+            [min]="DATE_RANGE_MIN" [max]="DATE_RANGE_MAX">
+            Choose dates
+          </tui-input-date-range>
+        </form>
+      </div>
+      <div *ngIf="isNotEnoughMetricAvailable"
+          class="container psm__warning tui-text_body-xl">
+          <div>
+            <i>Warning!</i>
+          </div>
+          <div>
+            To build a performance chart, page's metrics should be collected at
+            least <b>two</b> times.
+          </div>
+          <div>
+            If you collected metrics only once at the moment, you can hover over the chart
+            to make sure that's everything works as expected.
+          </div>
+        </div>
+      <tui-accordion class="container" [closeOthers]="true">
+        <tui-accordion-item *ngIf="displayData.firstContentfulPaint">
+          First Contentful Paint
+          <ng-template tuiAccordionItemContent>
+            <ng-container>
+              <div class="ps__hint">
+                <div class="ps__hint-explanation tui-text_body-xl">Score
+                  explanation:</div>
+                <div><b class="good">Good</b> - from 0 to 1800ms</div>
+                <div><b class="average">Average</b> - from 1800ms to 3000ms
+                </div>
+                <div><b class="bad">Bad</b> - over 3000ms</div>
+              </div>
+              <mt-field-data [input]="displayData.firstContentfulPaint">
+              </mt-field-data>
+            </ng-container>
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item *ngIf="displayData.largestContentfulPaint">
+          Largest Contentful Paint
+          <ng-template tuiAccordionItemContent>
+            <ng-container>
+              <div class="ps__hint">
+                <div class="ps__hint-explanation tui-text_body-xl">Score
+                  explanation:</div>
+                <div><b class="good">Good</b> - from 0 to 2500ms</div>
+                <div><b class="average">Average</b> - from 2500ms to 4000ms
+                </div>
+                <div><b class="bad">Bad</b> - over 4000ms</div>
+              </div>
+              <mt-field-data [input]="displayData.largestContentfulPaint">
+              </mt-field-data>
+            </ng-container>
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item *ngIf="displayData.cumulativeLayoutShift">
+          Cumulative Layout Shift
+          <ng-template tuiAccordionItemContent>
+            <ng-container>
+              <div class="ps__hint">
+                <div class="ps__hint-explanation tui-text_body-xl">Score
+                  explanation:</div>
+                <div><b class="good">Good</b> - from 0 to 0.1</div>
+                <div><b class="average">Average</b> - from 0.1 to 0.25</div>
+                <div><b class="bad">Bad</b> - over 0.25</div>
+              </div>
+              <mt-field-data [input]="displayData.cumulativeLayoutShift">
+              </mt-field-data>
+            </ng-container>
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item *ngIf="displayData.firstInputDelay">
+          First Input Delay
+          <ng-template tuiAccordionItemContent>
+            <ng-container>
+              <div class="ps__hint">
+                <div class="ps__hint-explanation tui-text_body-xl">Score
+                  explanation:</div>
+                <div><b class="good">Good</b> - from 0 to 100ms</div>
+                <div><b class="average">Average</b> - from 100ms to 300ms</div>
+                <div><b class="bad">Bad</b> - over 300ms</div>
+              </div>
+              <mt-field-data [input]="displayData.firstInputDelay">
+              </mt-field-data>
+            </ng-container>
+          </ng-template>
+        </tui-accordion-item>
+      </tui-accordion>
+      <div class="psm__explain container tui-text_body-m">
+        The <b>Chrome User Experience Report</b> is a historical report about
+        how this page has
+        performed, and represents anonymized performance data from users in the
+        real-world on a variety of devices and network conditions.
+        <br />
+        It is important, that Your page should be public (<a
+          href="https://web.dev/is-crawlable/" target="_blank">crawlable and
+          indexable</a>)
+      </div>
+    </div>
+  </div>
+</mt-page>
+
+<ng-template #noContent>
+  <div class="no-content tui-text_body-xl">There are no data available for this
+    page, yet</div>
+</ng-template>
+
+<ng-template #notEnoughData>
+  <div class="tui-text_body-m">Not enough data to make chart</div>
+</ng-template>

@@ -1,0 +1,31 @@
+<style>
+  .runtime-perf-data {
+    max-width: 700px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .runtime-perf-data__description {
+    color: #5e72e4;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div *ngIf="inputData" class="runtime-perf-data">
+  <div class="runtime-perf-data__description tui-text_body-xl">{{inputData.description}}</div>
+  <ng-container>
+    <ngx-charts-line-chart [yScaleMin]="yScaleMin" [yScaleMax]="yScaleMax"
+      [showRefLabels]="true" [roundDomains]="true" [view]="view"
+      [animations]="true" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
+      [results]="[inputData]">
+      <ng-template #tooltipTemplate let-model="model">
+        <ng-container *ngIf="inputData.duration">
+          <div>{{model.value}} ms - {{model.name | date}}</div>
+        </ng-container>
+        <ng-container *ngIf="!inputData.duration">
+          <div>{{model.value}} - {{model.name | date}}</div>
+        </ng-container>
+      </ng-template>
+    </ngx-charts-line-chart>
+  </ng-container>
+</div>

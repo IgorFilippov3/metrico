@@ -1,0 +1,103 @@
+<style>
+  .pages__content {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .pages__loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+  }
+
+  .table-data {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table-data th {
+    cursor: default;
+  }
+
+  .table-data td {
+    cursor: pointer;
+  }
+
+  .table-data td,
+  .table-data th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .table-data tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .table-data tr:hover {
+    background-color: #ddd;
+  }
+
+  .table-data th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: white;
+    color: var(--tui-link);
+  }
+
+  .page__pagination {
+    margin-top: 32px;
+  }
+</style>
+
+<mt-page>
+  <div class="pages">
+    <div *ngIf="pagesListData$ | async as data" class="pages__content">
+      <div *ngIf="data.pages as pages; else loading" class="pages__list">
+        <ng-container *ngIf="data.pages.length; else noContent">
+
+          <table class="table-data">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Url</th>
+              <th>Update Way</th>
+              <th>Services</th>
+            </tr>
+            <tr *ngFor="let page of pages"
+              (click)="navigateToPageDetails(page)">
+              <td>{{page.id}}</td>
+              <td>{{page.name}}</td>
+              <td>{{page.url}}</td>
+              <td>{{UpdateWay.getDisplayName(page.updateWay)}}</td>
+              <td [innerHTML]="page.collectDataTypes | services"></td>
+            </tr>
+          </table>
+
+          <div class="page__pagination" *ngIf="data?.pagesCount > 1">
+            <tui-pagination
+              [length]="Math.ceil(data.pagesCount / data.viewRequest.pageSize)"
+              [index]="data.viewRequest.page - 1"
+              (indexChange)="changePage($event)"></tui-pagination>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</mt-page>
+<ng-template #loading>
+  <div class="pages__loading">
+    <mt-loader></mt-loader>
+  </div>
+</ng-template>
+<ng-template #noContent>
+  <div class="no-content tui-text_body-xl">
+    <p>You don't have any page, yet. Try to add a new one</p>
+    <a routerLink="/panel/add-page" tuiButton type="button"
+      class="tui-space_right-3 tui-space_bottom-3" appearance="primary">
+      Add Page
+    </a>
+  </div>
+</ng-template>

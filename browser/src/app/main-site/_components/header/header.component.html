@@ -1,0 +1,46 @@
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    width: 100%;
+    height: 70px;
+    background-color: #5e72e4;
+    box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+    border-bottom: 1px solid #5e72e4;
+    box-sizing: border-box;
+  }
+
+  .right-block {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__page-title {
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+
+  .header__feedback {
+    margin-right: 32px;
+  }
+  
+  .header__feedback a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .header__feedback a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<header class="header">
+  <div class="header__page-title tui-text_body-xl">{{pageTitle.name}}</div>
+
+  <div class="right-block">
+    <mt-user-panel></mt-user-panel>
+  </div>
+  
+</header>

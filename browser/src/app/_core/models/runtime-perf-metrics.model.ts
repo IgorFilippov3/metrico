@@ -1,0 +1,10 @@
+export type RuntimePerfMetricsModel = "jSEventListeners"
+  | "nodes"
+  | "layoutCount"
+  | "recalcStyleCount"
+  | "layoutDuration"
+  | "recalcStyleDuration"
+  | "scriptDuration"
+  | "taskDuration"
+  | "jSHeapUsedSize"
+  | "jSHeapTotalSize";

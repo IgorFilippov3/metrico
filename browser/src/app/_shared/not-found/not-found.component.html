@@ -1,0 +1,34 @@
+<style>
+  .not-found {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .not-found__content {
+    text-align: center;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .not-found__home {
+    display: inline-flex;
+    padding: 16px 30px;
+    background-color: var(--tui-link);
+    color: white;
+    border-radius: 4px;
+    margin-top: 12px;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+</style>
+
+<div class="not-found">
+  <div class="not-found__content">
+    <h1>Page Not Found</h1>
+    <a class="not-found__home" href="/about">Home</a>
+  </div>
+</div>

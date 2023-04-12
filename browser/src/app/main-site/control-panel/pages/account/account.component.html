@@ -1,0 +1,34 @@
+<style>
+  .account {
+    margin: 30px 0;
+  }
+  .account__container {
+    margin: 0 auto;
+    width: 768px;
+  }
+</style>
+
+<mt-page>
+  <div class="account">
+    <div class="account__content">
+      <tui-accordion class="account__container" [closeOthers]="false">
+        <tui-accordion-item>
+          Credentials
+          <ng-template tuiAccordionItemContent>
+            <div class="account__credentials">
+              <div><b>Api Key:</b> fsfdsdfsfs</div>
+            </div>
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item>
+          Payment
+          <ng-template tuiAccordionItemContent>
+            <div class="account__credentials">
+              <div>Payment</div>
+            </div>
+          </ng-template>
+        </tui-accordion-item>
+      </tui-accordion>
+    </div>
+  </div>
+</mt-page>

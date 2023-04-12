@@ -1,0 +1,67 @@
+<style>
+  .signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .signup__content {
+    min-width: 320px;
+    background-color: #fff;
+    border: 1px solid var(--tui-base-03);
+    border-radius: var(--tui-radius-m);
+    box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .signup__form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .signup__header {
+    text-align: center;
+  }
+
+  .signup__row:first-of-type {
+    margin-top: 32px;
+  }
+
+  .signup__row {
+    margin-top: 16px;
+  }
+
+  .signup__buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+  }
+
+  .signup__confirm-desc {
+    text-align: center;
+  }
+
+  .signup__confirm-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .signup__social {
+    margin-top: 14px;
+  }
+</style>
+
+<div class="signup">
+  <div class="signup__content">
+    <div class="signup__form">
+      <h1 class="signup__header">Create Account</h1>
+      <div class="signup__social">
+        <mt-social (onSocialClick)="handleSocialClick($event)"></mt-social>
+      </div>
+    </div>
+  </div>
+</div>

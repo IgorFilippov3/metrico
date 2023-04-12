@@ -1,0 +1,119 @@
+<style>
+  .add-page {
+    margin-top: 30px;
+  }
+
+  .add-page__header {
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .add-page__subheader {
+    text-align: center;
+    margin: 30px 0;
+    color: #5e72e4;
+  }
+
+  .add-page__content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .add-page__form {
+    width: 100%;
+    margin: 8px 0 24px 0;
+  }
+
+  .add-page__form-row+.add-page__form-row {
+    margin-top: 18px;
+  }
+
+  .add-page__services {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .add-page__form-checkbox+.add-page__form-checkbox {
+    margin-top: 10px;
+  }
+
+  .add-page__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .add-page__demo-title {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+</style>
+
+<mt-page>
+  <div class="add-page">
+    <div *ngIf="userPages" class="add-page__content">
+      <form [formGroup]="form"
+        *ngIf="userPages.length < 20; else pageLimitMessage"
+        class="add-page__form">
+        <div class="add-page__form-row">
+          <tui-input formControlName="name">
+            Name (optional)
+          </tui-input>
+        </div>
+        <div class="add-page__form-row">
+          <tui-input formControlName="url">
+            Page url
+          </tui-input>
+        </div>
+        <h2 class="add-page__subheader tui-text_h6">Choose what data you want to
+          collect</h2>
+        <div class="add-page__form-row add-page__services">
+          <tui-checkbox-labeled class="add-page__form-checkbox"
+            formControlName="labData" size="l">
+            Lighthouse
+          </tui-checkbox-labeled>
+          <tui-checkbox-labeled class="add-page__form-checkbox"
+            formControlName="fieldData" size="l">
+            User Experience
+          </tui-checkbox-labeled>
+          <tui-checkbox-labeled class="add-page__form-checkbox"
+            formControlName="codeCoverage" size="l">
+            Code Coverage
+          </tui-checkbox-labeled>
+        </div>
+        <div class="add-page__form-row">
+          <h2 class="add-page__subheader tui-text_h6">How often do You want to
+            collect data?</h2>
+          <div tuiGroup class="tui-form__row" [adaptive]="true"
+            [collapsed]="true">
+            <tui-radio-block contentAlign="right" formControlName="updateWay"
+              [item]="UpdateWay.PER_DAY" size="l">
+              {{UpdateWay.getDisplayName(UpdateWay.PER_DAY)}}
+            </tui-radio-block>
+            <tui-radio-block contentAlign="right" formControlName="updateWay"
+              [item]="UpdateWay.HOOK" size="l">
+              {{UpdateWay.getDisplayName(UpdateWay.HOOK)}}
+            </tui-radio-block>
+          </div>
+        </div>
+        <div class="add-page__form-row add-page__buttons">
+          <button tuiButton (click)="savePage()" class="tui-form__button"
+            size="l" type="submit">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mt-page>
+
+<ng-template #pageLimitMessage>
+  <div class="no-content tui-text_body-xl">
+    <div>The project is in open <b>BETA</b>.</div>
+    <div>The limit of pages available for monitoring are <b>20</b>, at the
+      moment.</div>
+    <div>If you want to increase the limit, please -> <a
+        href="mailto:filippovigorz@gmail.com" class="mt-highlight">let me
+        know</a>
+    </div>
+  </div>
+</ng-template>

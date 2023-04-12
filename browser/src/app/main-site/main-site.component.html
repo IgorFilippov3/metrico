@@ -1,0 +1,36 @@
+<style>
+  :host {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .mt-layout {
+    min-height: 100vh;
+    display: flex;
+  }
+  .mt-layout__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .mt-layout__content {
+    height: 100%;
+  }
+</style>
+
+<!-- <tui-root> -->
+  <div class="mt-layout">
+    <div class="mt-layout__sidebar">
+      <mt-sidebar></mt-sidebar>
+    </div>
+    <div class="mt-layout__container">
+      <div class="mt-layout__header">
+        <mt-header></mt-header>
+      </div>
+      <div class="mt-layout__content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+<!-- </tui-root> -->

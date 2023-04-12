@@ -1,0 +1,158 @@
+<style>
+  .page-details__header {
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .page-details__subheader {
+    text-align: center;
+    margin: 30px 0;
+    color: #5e72e4;
+  }
+
+  .page-details__content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .page-details__form {
+    width: 768px;
+    margin: 8px 0 24px 0;
+  }
+
+  .page-details__form-row+.page-details__form-row {
+    margin-top: 18px;
+  }
+
+  .page-details__services {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-details__form-checkbox+.page-details__form-checkbox {
+    margin-top: 10px;
+  }
+
+  .page-details__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .page-details__api {
+    width: 100%;
+    background-color: #5e72e4;
+    border-radius: 5px;
+    box-shadow: rgb(94 114 228 / 55%) 0px 20px 60px;
+    padding: 30px 20px;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .page-details__api::selection {
+    background-color: #fff;
+    color: #5e72e4;
+  }
+
+  .delete-modal__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .page-details__trigger {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .page-details__demo-title {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+</style>
+
+<mt-page backLink="/panel/pages">
+  <div class="page-details">
+    <div *ngIf="user.role === UserRole.DEMO"
+      class="page-details__demo-title tui-text_body-xl">
+      Readonly mode
+    </div>
+    <div class="page-details__content">
+      <form *ngIf="form" [formGroup]="form" class="page-details__form">
+        <div class="page-details__form-row">
+          <tui-input formControlName="name">
+            Name (optional)
+          </tui-input>
+        </div>
+        <div class="page-details__form-row">
+          <tui-input formControlName="url">
+            Page url
+          </tui-input>
+        </div>
+        <h2 class="page-details__subheader tui-text_h6">Choose what data you
+          want to collect</h2>
+        <div class="page-details__form-row add-page__services">
+          <tui-checkbox-labeled class="page-details__form-checkbox"
+            formControlName="labData" size="l">
+            Lighthouse
+          </tui-checkbox-labeled>
+          <tui-checkbox-labeled class="page-details__form-checkbox"
+            formControlName="fieldData" size="l">
+            User Experience
+          </tui-checkbox-labeled>
+          <tui-checkbox-labeled class="page-details__form-checkbox"
+            formControlName="codeCoverage" size="l">
+            Code Coverage
+          </tui-checkbox-labeled>
+        </div>
+        <div class="page-details__form-row">
+          <h2 class="page-details__subheader tui-text_h6">How often do You
+            want
+            to
+            collect data?</h2>
+          <div tuiGroup class="tui-form__row" [adaptive]="true"
+            [collapsed]="true">
+            <tui-radio-block contentAlign="right" formControlName="updateWay"
+              [item]="UpdateWay.PER_DAY" size="l">
+              {{UpdateWay.getDisplayName(UpdateWay.PER_DAY)}}
+            </tui-radio-block>
+            <tui-radio-block contentAlign="right" formControlName="updateWay"
+              [item]="UpdateWay.HOOK" size="l">
+              {{UpdateWay.getDisplayName(UpdateWay.HOOK)}}
+            </tui-radio-block>
+          </div>
+        </div>
+        <div class="page-details__form-row page-details__trigger">
+          <mt-action-button frontLabel="Collect metrics"
+            [backLabel]="backLabelActionText" (onClick)="collectMetrics()"
+            [disabled]="false"></mt-action-button>
+        </div>
+        <div class="page-details__form-row page-details__buttons">
+          <button tuiButton appearance="custom"
+            (click)="openDeletePageDialog(template)" class="tui-form__button"
+            size="l" [disabled]="user.role === UserRole.DEMO">
+            Delete
+          </button>
+          <button tuiButton (click)="updatePage()" class="tui-form__button"
+            size="l" type="submit" [disabled]="user.role === UserRole.DEMO">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mt-page>
+
+<ng-template #template let-observer>
+  <div class="delete-modal">
+    <p>Are you sure, you want to delete this page?</p>
+    <div class="delete-modal__controls">
+      <button tuiButton type="button" size="m" (click)="observer.complete()">
+        Cancel
+      </button>
+      <button tuiButton type="button" size="m" appearance="custom"
+        (click)="deletePage(observer)">
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,45 @@
+<style>
+  .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .login__content {
+    min-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid var(--tui-base-03);
+    border-radius: var(--tui-radius-m);
+    box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+  }
+
+  .login__form {
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .login__header {
+    text-align: center;
+  }
+
+  .login__social {
+    margin-top: 14px;
+  }
+</style>
+
+<div class="login">
+  <div class="login__content">
+    <div class="login__form">
+      <h1 class="login__header">Login</h1>
+      <div class="login__social">
+        <mt-social (onSocialClick)="handleSocialClick($event)"></mt-social>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<style>
+  .lighthouse-metrics__header {
+    text-align: center;
+    color: #5e72e4;
+    margin-bottom: 34px;
+    text-decoration: underline;
+  }
+
+  .lighthouse-metrics__content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    width: 768px;
+  }
+
+  .lighthouse-metrics__date-range {
+    margin-bottom: 34px;
+  }
+
+  .lighthouse-metrics__warning {
+    text-align: center;
+    margin: 16px 0;
+  }
+
+  .lighthouse-metrics__warning i {
+    color: #f44336;
+  }
+
+  .lab-data__report {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<tui-tabs>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.DESKTOP)">
+    Desktop
+  </button>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.MOBILE)">
+    Mobile
+  </button>
+</tui-tabs>
+
+<mt-page backLink="/lighthouse">
+  <div class="lighthouse-metrics">
+    <div *ngIf="page" class="lighthouse-metrics__header tui-text_h4">
+      {{page.url}}
+    </div>
+    <div *ngIf="displayData?.length; else noContent"
+      class="lighthouse-metrics__content">
+      <div class="lighthouse-metrics__lab-data">
+        <div class="lighthouse-metrics__date-range">
+          <form [formGroup]="dateRangeForm">
+            <tui-input-date-range formControlName="dateRange"
+              [min]="DATE_RANGE_MIN" [max]="DATE_RANGE_MAX">
+              Choose dates
+            </tui-input-date-range>
+          </form>
+        </div>
+        <div *ngIf="isNotEnoughMetricAvailable"
+          class="container lighthouse-metrics__warning tui-text_body-xl">
+          <div>
+            <i>Warning!</i>
+          </div>
+          <div>
+            To build a performance chart, page's metrics should be collected at
+            least <b>two</b> times.
+          </div>
+          <div>
+            If you collected metrics only once at the moment, you can hover over
+            the chart
+            to make sure that's everything works as expected.
+          </div>
+        </div>
+        <tui-accordion class="container" [closeOthers]="true">
+          <tui-accordion-item>
+            Latest lighthouse report
+            <ng-template tuiAccordionItemContent>
+              <mt-lab-data-report [pageID]="page.id" [deviceType]="currentDeviceType"></mt-lab-data-report>
+            </ng-template>
+          </tui-accordion-item>
+          <tui-accordion-item *ngFor="let data of displayData">
+            {{data.name}}
+            <ng-template tuiAccordionItemContent>
+              <ng-container>
+                <mt-lab-data [inputData]="data"></mt-lab-data>
+              </ng-container>
+            </ng-template>
+          </tui-accordion-item>
+        </tui-accordion>
+      </div>
+    </div>
+  </div>
+  
+</mt-page>
+
+<ng-template #noContent>
+  <div class="no-content tui-text_body-xl">There are no data available for this
+    page, yet</div>
+</ng-template>

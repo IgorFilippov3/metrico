@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+.no-content {
+  width: 100%;
+  text-align: center;
+}
+
+tui-wrapper[data-appearance='custom'] {
+  background: #f44336;
+  color: #fff;
+
+  &[data-state='hovered'] {
+      background: #fc8e86;
+  }
+
+  &[data-state='pressed'] {
+      background: #b32f25;
+  }
+
+  &[data-state='disabled'] {
+      background: #ed9fa7;
+  }
+}
+
+.code-coverage {
+  .title {
+    text-overflow: initial !important;
+    overflow: visible !important;
+    word-break: break-all !important;
+    white-space: normal !important;
+  }
+}
+
+.mt-text-primary {
+  background: rgb(82, 110, 211);
+  background: linear-gradient(
+    90deg,
+    rgba(82, 110, 211, 1) 0%,
+    rgba(9, 9, 121, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mt-highlight {
+  color: rgb(82, 110, 211);
+  font-weight: bold;
+  text-decoration: underline;
+}

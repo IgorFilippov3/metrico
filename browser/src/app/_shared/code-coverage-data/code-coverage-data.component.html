@@ -1,0 +1,28 @@
+<style>
+  .сс-data {
+    max-width: 700px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .сс__header {
+    color: #5e72e4;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div *ngIf="uiData" class="сс-data">
+  <div class="сс-data__header tui-text_h6">{{uiData.name}}</div>
+  <ng-container>
+    <ngx-charts-line-chart [yScaleMin]="yScaleMin" [yScaleMax]="yScaleMax"
+      [showRefLabels]="true" [roundDomains]="true" [view]="view"
+      [animations]="true" [scheme]="colorScheme" [xAxis]="true" [yAxis]="true"
+      [results]="[uiData]">
+      <ng-template #tooltipTemplate let-model="model">
+        <div>{{model.value | codeSize}} - {{model.name | date}}</div>
+          <div *ngIf="model.comment">Comment - <b>{{model.comment}}</b></div>
+      </ng-template>
+    </ngx-charts-line-chart>
+  </ng-container>
+</div>

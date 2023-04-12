@@ -1,0 +1,160 @@
+<style>
+  .faq {
+    margin-top: 20px;
+    margin-bottom: 70px;
+  }
+
+  .faq__content {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .faq__answer {
+    margin-top: 12px;
+  }
+
+  .faq__answer-hint {
+    margin-top: 8px;
+  }
+
+  .faq__params {
+    margin-top: 8px;
+  }
+
+  .faq__params-item {
+    margin-left: 20px;
+    width: fit-content;
+  }
+
+  .faq__params-item-key {
+    color: var(--tui-link);
+  }
+
+  .faq__params-item {
+    margin-top: 4px;
+  }
+
+  .faq_hl {
+    color: var(--tui-link);
+  }
+
+  .faq_mt-4 {
+    padding-top: 4px;
+    margin-top: 8px;
+  }
+
+  .faq__question+.faq__question {
+    margin-top: 24px;
+  }
+</style>
+
+<mt-page>
+  <div class="faq">
+    <div class="faq__content">
+
+      <div class="faq__question">
+        <tui-accordion class="container" [closeOthers]="true">
+          <tui-accordion-item>
+            How to collect metrics for my page?
+            <ng-template tuiAccordionItemContent>
+              <div class="faq__answer tui-text_body-l">
+                Whenever You did changes that might affect your page
+                performance, You
+                can send a http <b class="faq_hl">GET</b> request to
+                our server to trigger metrics collection.
+                <div class="faq_mt-4">Example below:</div>
+                <div class="faq__answer-hint">
+                  <mt-hint
+                    [text]="serverAddress + '/api/metrics/hook/one?apiKey={apiKey}&pageId=${pageId}&comment={commment}'">
+                  </mt-hint>
+                </div>
+
+                <div class="faq__params">
+                  <div>where:</div>
+                  <div class="faq__params-item">
+                    <span class="faq__params-item-key">apiKey</span>
+                    - your api key
+                  </div>
+                  <div class="faq__params-item">
+                    <span class="faq__params-item-key">pageId</span>
+                    - id of page to collect data
+                  </div>
+                  <div class="faq__params-item">
+                    <span class="faq__params-item-key">comment</span>
+                    - your comment in <i>kebab-case</i>. For example - <span class="faq__params-item-key">add-new-function</span> 
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </tui-accordion-item>
+        </tui-accordion>
+      </div>
+
+      <div class="faq__question">
+        <tui-accordion class="container" [closeOthers]="true">
+          <tui-accordion-item>
+            How to collect data for all of my pages?
+            <ng-template tuiAccordionItemContent>
+              <div class="faq__answer tui-text_body-l">
+                To collect metrics for all of your pages, You need to send a
+                http <b class="faq_hl">GET</b> request to
+                our server to trigger metrics collection.
+                <div class="faq_mt-4">Example below:</div>
+                <div class="faq__answer-hint">
+                  <mt-hint
+                    [text]="serverAddress + '/api/metrics/hook/all?apiKey={apiKey}&comment={commment}'">
+                  </mt-hint>
+                </div>
+                <div class="faq__params">
+                  <div>where:</div>
+                  <div class="faq__params-item">
+                    <span class="faq__params-item-key">apiKey</span>
+                    - your api key
+                  </div>
+                  <div class="faq__params-item">
+                    <span class="faq__params-item-key">comment</span>
+                    - your comment in <i>kebab-case</i>. For example - <span class="faq__params-item-key">add-new-function</span> 
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </tui-accordion-item>
+        </tui-accordion>
+      </div>
+
+      <div class="faq__question">
+        <tui-accordion class="container" [closeOthers]="true">
+          <tui-accordion-item>
+            What is my api key?
+            <ng-template tuiAccordionItemContent>
+              <div class="faq__answer tui-text_body-l">
+                click to copy:
+                <div (click)="copyApiKey()" class="faq__answer-hint">
+                  <ng-container *ngIf="apiKey">
+                    <mt-hint [text]="apiKey">
+                    </mt-hint>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-template>
+          </tui-accordion-item>
+        </tui-accordion>
+      </div>
+
+      <div class="faq__question">
+        <tui-accordion class="container" [closeOthers]="true">
+          <tui-accordion-item>
+            How can I manually send request to collect data?
+            <ng-template tuiAccordionItemContent>
+              <div class="faq__answer tui-text_body-l">
+                You can trigger page data collection at page details in
+                <a routerLink="/panel/pages">control panel</a>
+              </div>
+            </ng-template>
+          </tui-accordion-item>
+        </tui-accordion>
+      </div>
+
+    </div>
+  </div>
+</mt-page>

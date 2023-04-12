@@ -1,0 +1,118 @@
+<style>
+  .user-panel {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  .user-panel__info-dropdown {
+    display: flex;
+    margin-right: 16px;
+    transition: opacity 300ms ease-in-out;
+    cursor: pointer;
+  }
+
+  .user-panel__info-dropdown:hover {
+    opacity: .7;
+  }
+
+  .user-panel__info-icon {
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+  }
+
+  .user-panel__logout {
+    display: flex;
+    transition: opacity 300ms ease-in-out;
+    cursor: pointer;
+  }
+
+  .user-panel__logout:hover {
+    opacity: .7;
+  }
+
+  .user-panel__logout-icon {
+    margin-right: 8px;
+    position: relative;
+    top: 2px;
+  }
+
+  .user-panel__dropdown-item-subscription {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-panel__dropdown-item-subscription-name {
+    font-size: 20px;
+    color: #3aa981;
+  }
+
+  .cancel-sub-dialog__title {
+    text-align: center;
+  }
+
+  .cancel-sub-dialog__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+
+<div *ngIf="user$ | async as user" class="user-panel tui-text_body-xl">
+  <div class="user-panel__info">
+    <tui-hosted-dropdown #dropdown [content]="content" [(open)]="open">
+      <div class="user-panel__info-dropdown">
+        <div class="user-panel__info-icon">
+          <tui-svg class="icon" src="tuiIconChevronDownLarge"></tui-svg>
+        </div>
+        <div class="user-panel__info-name">
+          {{user.username}}</div>
+      </div>
+    </tui-hosted-dropdown>
+
+    <ng-template #content>
+      <tui-data-list>
+        <button *ngIf="user.subscription" tuiOption
+          class="user-panel__dropdown-item-subscription">
+          <span>Current subscription:</span>
+          <span class="user-panel__dropdown-item-subscription-name">
+            <strong>{{user.subscription}}</strong>
+          </span>
+        </button>
+        <button (click)="redirectToPricing()" *ngIf="user.subscription === Subscription.basic" tuiOption>
+          <strong>Upgrade subscription</strong>
+        </button>
+        <a tuiOption class="tui-text_body-l"
+          href="mailto:igor.filippov@pagehealth.me" (click)="closeDropdown()">
+          Send feedback
+        </a>
+      </tui-data-list>
+    </ng-template>
+  </div>
+  <div class="user-panel__logout">
+    <div class="user-panel__logout-icon">
+      <tui-svg class="icon" src="tuiIconLoginLarge"></tui-svg>
+    </div>
+    <div (click)="logout()" class="user-panel__logout-label">Logout</div>
+  </div>
+
+  <!-- <ng-template #template let-observer>
+    <div class="cancel-sub-dialog">
+      <p class="cancel-sub-dialog__title">Are you sure, you want to cancel your
+        subscription?</p>
+      <div class="cancel-sub-dialog__controls">
+        <button tuiButton type="button" size="m" (click)="observer.complete()">
+          Close dialog
+        </button>
+        <button appearance="custom" tuiButton type="button" size="m"
+          (click)="cancelSubscription(user.cancelSubscriptionUrl)">
+          Cancel subscription
+        </button>
+      </div>
+    </div>
+  </ng-template> -->
+</div>

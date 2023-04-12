@@ -1,0 +1,19 @@
+<style>
+  .hint {
+    width: 100%;
+    background-color: #5e72e4;
+    border-radius: 5px;
+    box-shadow: rgb(94 114 228 / 55%) 0px 20px 60px;
+    padding: 30px 20px;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .hint::selection {
+    background-color: #fff;
+    color: #5e72e4;
+  }
+</style>
+
+<div *ngIf="text && text.length" class="hint">{{text}}</div>

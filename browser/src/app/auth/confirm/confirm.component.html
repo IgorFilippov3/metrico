@@ -1,0 +1,41 @@
+<style>
+  .confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .confirm__header {
+    text-align: center;
+  }
+
+  .confirm__content {
+    width: 320px;
+    background-color: #fff;
+    border: 1px solid var(--tui-base-03);
+    border-radius: var(--tui-radius-m);
+    box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .confirm__buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+</style>
+
+<div class="confirm">
+  <div class="confirm__content">
+    <h2 class="confirm__header">Please, confirm your email</h2>
+    <div class="confirm__buttons">
+      <button tuiButton (click)="confirm()" [disabled]="loading" class="tui-form__button" size="l"
+        type="submit">
+        Confirm email
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<style>
+  .cc-details__item {
+    /* width: 90%; */
+    cursor: pointer;
+    border: 1px solid var(--tui-base-04);
+    border-radius: var(--tui-radius-l);
+    padding: 1rem;
+  }
+
+  .cc-details__item+.cc-details__item {
+    margin-top: 12px;
+  }
+
+  .cc-details__item-name {
+    color: #5e72e4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .cc-details__item-name--expanded {
+    white-space: normal;
+  }
+
+  .cc-details__item-size {
+    margin-top: 12px;
+    width: 300px;
+    height: 50px;
+    background-color: #0cce6b;
+    border-radius: var(--tui-radius-l);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .cc-details__item-size-label {
+    color: #fff
+  }
+
+  .cc-details__item-size-unused {
+    background-color: #ff4e42;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  .cc-details__title {
+    margin-bottom: 20px;
+  }
+</style>
+<div class="cc-details">
+  <div class="cc-details__title">1. Click on file name to expand</div>
+  <div class="cc-details__title">2. Hover the green-red bar to get more info</div>
+  <div *ngIf="details" class="cc-details__content">
+    <div *ngFor="let detail of details" class="cc-details__item">
+      <div
+        (click)="selectName(detail)"
+        [ngClass]="{'cc-details__item-name--expanded': detail === selectedDetails}"
+        class="cc-details__item-name tui-text_h5">
+        {{detail.name}}</div>
+      <div class="cc-details__item-size" [tuiHint]="tooltip"
+        tuiHintDirection="top-left" tuiHintMode="onDark">
+        <span class="cc-details__item-size-label">{{detail.bytes |
+          codeSize}}</span>
+        <div [ngStyle]="{'width': detail.unusedBytesBlockWidth}"
+          class="cc-details__item-size-unused">
+          {{detail.unusedBytes | codeSize}}
+        </div>
+      </div>
+      <ng-template #tooltip>
+        <div class="tui-text_body-l">
+          <strong>{{detail.unusedBytes | codeSize}}</strong> from
+          <strong>{{detail.bytes | codeSize}}</strong> is unused.
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

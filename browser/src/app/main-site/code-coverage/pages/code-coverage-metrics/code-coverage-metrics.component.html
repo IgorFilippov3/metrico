@@ -1,0 +1,103 @@
+<style>
+  .code-coverage-metrics__header {
+    text-align: center;
+    color: #5e72e4;
+    margin-bottom: 34px;
+    text-decoration: underline;
+  }
+
+  .code-coverage-metrics__content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    width: 768px;
+  }
+
+  .code-coverage-metrics__date-range {
+    margin-bottom: 34px;
+  }
+
+  .code-coverage-metrics__warning {
+    text-align: center;
+    margin: 16px 0;
+  }
+
+  .code-coverage-metrics__warning i {
+    color: #f44336;
+  }
+
+  /* .lab-data__report {
+    display: flex;
+    justify-content: center;
+  } */
+</style>
+
+<tui-tabs>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.DESKTOP)">
+    Desktop
+  </button>
+  <button tuiTab (click)="changeCurrentDeviceType(DeviceType.MOBILE)">
+    Mobile
+  </button>
+</tui-tabs>
+
+<mt-page backLink="/code-coverage">
+  <div class="code-coverage-metrics">
+    <div *ngIf="page" class="code-coverage-metrics__header tui-text_h4">
+      {{page.url}}
+    </div>
+  </div>
+  <div *ngIf="displayData?.length; else noContent"
+    class="code-coverage-metrics__content">
+    <div>
+      <div class="lighthouse-metrics__date-range">
+        <form [formGroup]="dateRangeForm">
+          <tui-input-date-range formControlName="dateRange"
+            [min]="DATE_RANGE_MIN" [max]="DATE_RANGE_MAX">
+            Choose dates
+          </tui-input-date-range>
+        </form>
+      </div>
+      <div *ngIf="isNotEnoughMetricAvailable"
+        class="container code-coverage-metrics__warning tui-text_body-xl">
+        <div>
+          <i>Warning!</i>
+        </div>
+        <div>
+          To build a performance chart, page's metrics should be collected at
+          least <b>two</b> times.
+        </div>
+        <div>
+          If you collected metrics only once at the moment, you can hover over
+          the chart
+          to make sure that's everything works as expected.
+        </div>
+      </div>
+      <tui-accordion class="container" [closeOthers]="true">
+        <tui-accordion-item *ngFor="let data of displayData">
+          {{data.name}}
+          <ng-template tuiAccordionItemContent>
+            <ng-container>
+              <mt-code-coverage-data [inputData]="data"></mt-code-coverage-data>
+            </ng-container>
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item>
+          Latest detailed report
+          <ng-template tuiAccordionItemContent>
+            <mt-code-coverage-details [pageID]="page.id"
+              [deviceType]="currentDeviceType">
+            </mt-code-coverage-details>
+          </ng-template>
+        </tui-accordion-item>
+      </tui-accordion>
+    </div>
+  </div>
+</mt-page>
+
+<ng-template #noContent>
+  <div class="no-content tui-text_body-xl">There are no data available for this
+    page, yet</div>
+</ng-template>

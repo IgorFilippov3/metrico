@@ -1,0 +1,109 @@
+<style>
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+    border-right: 1px solid rgb(136 152 170 / 15%);
+  }
+
+  .sidebar__logo {
+    color: var(--tui-link);
+    padding: 24px 24px 0 24px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar__logo-text {
+    margin-left: 8px;
+  }
+
+  .sidebar__content {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 24px;
+  }
+
+  .sidebar__content-item {
+    padding: 12px 0;
+  }
+
+  .sidebar__content-item-link {
+    color: var(--tui-text-02);
+    text-decoration: none;
+    text-transform: capitalize;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+  }
+
+  .sidebar__content-item-link .icon {
+    margin-right: 12px;
+  }
+
+  .sidebar__content-item-link--active {
+    color: var(--tui-text-01);
+  }
+
+  .beta {
+    font-size: 14px;
+    padding: 2px 8px;
+    text-transform: none;
+    color: white;
+    background-color: var(--tui-link);
+    border-radius: 10px;
+    margin-left: 10px;
+    position: relative;
+    top: 4px;
+  }
+</style>
+
+<div class="sidebar">
+  <div class="sidebar__logo">
+    <svg width="80" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      preserveAspectRatio="xMidYMid meet" viewBox="654 254 245 235">
+
+      <g data-item-type="image" data-item="Image" data-logo-item=""
+        id="logo__item--logo_0" class="logo__item">
+        <g class="logo__item__inner"
+          transform="translate(623.3714513841015 230) scale(1.9949917289845363 1.9949917289845363) rotate(0 0 0)">
+          <g>
+            <polygon fill="#526ed3"
+              points="77,67.7 77,13.9 77,14 77,13.7 17.2,118.5 17.8,118.3"
+              data-part-id="logo__item--logo_0__0"></polygon>
+            <polygon fill="#8096e5"
+              points="77,14 77,13.9 77,67.7 77,67.7 77,67.8 136.1,118.3 136.8,118.5"
+              data-part-id="logo__item--logo_0__1"></polygon>
+            <polygon fill="#4ABEE6"
+              points="77,67.7 17.8,118.3 18.2,118.2 77,96.3 77,67.8 77,67.8 77,67.7"
+              data-part-id="logo__item--logo_0__2"></polygon>
+            <path fill="#BDE2F4"
+              d="M77,67.8v28.5l0,0v0.1l58.4,21.7l0.7,0.2L77,67.8L77,67.8z"
+              data-part-id="logo__item--logo_0__3"></path>
+            <polygon fill="#93C06A"
+              points="77,96.3 18.2,118.2 17.8,118.3 17.2,118.5 17.1,118.6 17.3,118.7 17.4,118.7 17.8,118.8 77,129.9    77,96.3 77,96.4 77,96.3  "
+              data-part-id="logo__item--logo_0__4"></polygon>
+            <polygon fill="#DBE9CA"
+              points="136.8,118.5 136.8,118.5 136.1,118.3 135.5,118 77,96.4 77,96.3 77,130 136.2,118.8 136.5,118.8    136.7,118.7 136.9,118.7  "
+              data-part-id="logo__item--logo_0__5"></polygon>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <span class="sidebar__logo-text tui-text_h4">Page Health</span>
+  </div>
+  <div class="sidebar__content">
+    <div *ngFor="let item of items" class="sidebar__content-item">
+      <a [routerLink]="item.path"
+        routerLinkActive="sidebar__content-item-link--active"
+        [routerLinkActiveOptions]="{exact: item.exact}"
+        class="sidebar__content-item-link tui-text_body-l">
+        {{item.label}}
+        <span *ngIf="item.beta" class="beta">beta</span>
+      </a>
+    </div>
+  </div>
+</div>
